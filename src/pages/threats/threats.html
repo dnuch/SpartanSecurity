@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>
+      Threats
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="addThreat()">
+        <ion-icon name="add"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-refresher (ionRefresh)="refreshData($event)">
+    <ion-refresher-content
+                  pullingIcon="arrow-dropdown"
+                  pullingText="Pull to refresh"
+                  refreshingSpinner="circles"
+                  refreshingText="Refreshing...">
+    </ion-refresher-content>
+  </ion-refresher>
+
+    <ion-list text-wrap>
+      <ion-item-sliding *ngFor="let item of items; let idx = index;">
+        <button ion-item>
+          <h2>{{item.type}}</h2>
+          <p>{{getDate(item.date)}}</p>
+          <br>
+          <p><strong>{{item.description}}</strong></p>
+        </button>
+
+        <ion-item-options>
+          <button ion-button color="danger" (click)="deleteThreat(item, idx)">DELETE</button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+</ion-content>
+

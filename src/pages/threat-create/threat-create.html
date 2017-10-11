@@ -1,0 +1,41 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Report Threat</ion-title>
+    <ion-buttons end>
+      <button ion-button [attr.icon-only]="!isAndroid ? null : ''" (click)="cancel()">
+        <span color="primary" showWhen="ios">
+          Cancel
+        </span>
+        <ion-icon name="md-close" showWhen="core,android,windows"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+  <ion-list>
+    <ion-item padding-top>
+      <ion-label stacked>Category</ion-label>
+      <ion-select [(ngModel)]="item.type" name="type" interface="popover">
+        <ion-option *ngFor="let option of threatOptions" value="{{option.type}}" selected="true" (ionSelect)="threatDescription = option.description">{{option.type}}</ion-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item class="custom-item">
+      <ion-label>Threat Description</ion-label>
+      <ion-textarea rows="5" [(ngModel)]="item.description" name="description"></ion-textarea>
+    </ion-item>
+
+    <div padding>
+      <button block icon-start ion-button color="primary" (click)="done()"><ion-icon name="md-checkmark" showWhen="core,android,windows"></ion-icon>Submit Threat</button>
+    </div>
+    <div padding>
+      <p>
+        {{threatDescription}}
+      </p>
+    </div>
+  </ion-list>
+</ion-content>

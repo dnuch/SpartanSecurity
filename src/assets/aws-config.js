@@ -6,29 +6,29 @@
 
 // AWS Mobile Hub Project Constants
 const aws_app_analytics = 'enable';
-const aws_cognito_identity_pool_id = 'us-west-2:f21454e1-a357-41f3-9c1a-ce7e7664780b';
-const aws_cognito_region = 'us-west-2';
+const aws_cognito_identity_pool_id = 'us-east-1:f622a33b-073a-457d-8add-f2e9dfd568ca';
+const aws_cognito_region = 'us-east-1';
 const aws_content_delivery = 'enable';
-const aws_content_delivery_bucket = 'spartansecurity-hosting-mobilehub-1544495507';
-const aws_content_delivery_bucket_region = 'us-west-1';
+const aws_content_delivery_bucket = 'spartansecurity-hosting-mobilehub-1720947219';
+const aws_content_delivery_bucket_region = 'us-east-1';
 const aws_content_delivery_cloudfront = 'enable';
-const aws_content_delivery_cloudfront_domain = 'd3cu2fvypzznsx.cloudfront.net';
+const aws_content_delivery_cloudfront_domain = 'd377e8qem0x8gl.cloudfront.net';
 const aws_dynamodb = 'enable';
-const aws_dynamodb_all_tables_region = 'us-west-1';
-const aws_dynamodb_table_schemas = '[{"tableName":"ionic-mobile-hub-tasks","attributes":[{"name":"userId","type":"S"},{"name":"taskId","type":"S"},{"name":"category","type":"S"},{"name":"created","type":"N"},{"name":"description","type":"S"}],"indexes":[{"indexName":"DateSorted","hashKey":"userId","rangeKey":"created"}],"region":"us-west-1","hashKey":"userId","rangeKey":"taskId"}]';
-const aws_mobile_analytics_app_id = '3b2375042db1410fb146e5569530f2b2';
-const aws_project_id = 'fe44d320-6933-45b9-916e-ae75cd3f05a9';
-const aws_project_name = 'SpartanSecurity';
-const aws_project_region = 'us-west-1';
-const aws_resource_name_prefix = 'spartansecurity-mobilehub-1544495507';
+const aws_dynamodb_all_tables_region = 'us-east-1';
+const aws_dynamodb_table_schemas = '[{"tableName":"spartan-security-tasks","attributes":[{"name":"userId","type":"S"},{"name":"taskId","type":"S"},{"name":"category","type":"S"},{"name":"created","type":"N"},{"name":"description","type":"S"}],"indexes":[{"indexName":"DateSorted","hashKey":"userId","rangeKey":"created"}],"region":"us-east-1","hashKey":"userId","rangeKey":"taskId"}]';
+const aws_mobile_analytics_app_id = '8dfc01fa5eec47fca4635f97d5251052';
+const aws_project_id = '419a56fc-5b6c-42dd-ab1f-129a8c5aca42';
+const aws_project_name = 'Spartan-Security';
+const aws_project_region = 'us-east-1';
+const aws_resource_name_prefix = 'spartansecurity-mobilehub-1720947219';
 const aws_sign_in_enabled = 'enable';
 const aws_user_files = 'enable';
-const aws_user_files_s3_bucket = 'spartansecurity-userfiles-mobilehub-1544495507';
-const aws_user_files_s3_bucket_region = 'us-west-1';
+const aws_user_files_s3_bucket = 'spartansecurity-userfiles-mobilehub-1720947219';
+const aws_user_files_s3_bucket_region = 'us-east-1';
 const aws_user_pools = 'enable';
-const aws_user_pools_id = 'us-west-2_fJQRQLmTC';
+const aws_user_pools_id = 'us-east-1_ZHhVRrLlG';
 const aws_user_pools_mfa_type = 'OFF';
-const aws_user_pools_web_client_id = '6j5qvo4sovjq4d1q93mj19o34u';
+const aws_user_pools_web_client_id = '26kq4t3rese1lb0jpdk6qj689b';
 const aws_user_settings = 'enable';
 
 AWS.config.region = aws_project_region;
