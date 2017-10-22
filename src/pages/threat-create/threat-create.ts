@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavParams, ViewController, Platform } from 'ionic-angular';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @Component({
   selector: 'page-threats-create',
@@ -16,7 +17,8 @@ export class ThreatCreatePage {
 
   constructor(public navParams: NavParams,
               public viewCtrl: ViewController,
-              public platform: Platform) {
+              public platform: Platform,
+              public geolocation: Geolocation) {
     this.isAndroid = platform.is('android');
 
     this.threatOptions = [
@@ -53,7 +55,10 @@ export class ThreatCreatePage {
   }
 
   done() {
-    this.item.date = new Date().getTime();
+    this.geolocation.getCurrentPosition().then((geoposition) => {
+      this.item.latitude = geoposition.coords.latitude;
+      this.item.longitude = geoposition.coords.longitude;
+    });
     this.viewCtrl.dismiss(this.item);
   }
 }

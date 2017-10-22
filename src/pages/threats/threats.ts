@@ -4,8 +4,10 @@ import { NavController, ModalController } from 'ionic-angular';
 import { ThreatCreatePage } from '../threat-create/threat-create';
 
 import { DynamoDB, User } from '../../providers/providers';
+import { MapModal } from '../map-modal/map-modal';
+import { GoogleMapsCluster } from '../../providers/google-maps-cluster/google-maps-cluster';
 
-declare var AWS: any;
+declare let AWS: any;
 
 @Component({
   selector: 'page-threats',
@@ -20,8 +22,8 @@ export class ThreatsPage {
   constructor(public navCtrl: NavController,
               public modalCtrl: ModalController,
               public user: User,
-              public db: DynamoDB) {
-
+              public db: DynamoDB,
+              public googleMapsCluster: GoogleMapsCluster) {
     this.refreshTasks();
   }
 
@@ -44,6 +46,12 @@ export class ThreatsPage {
       'ScanIndexForward': false
     }).promise().then((data) => {
       this.items = data.Items;
+      this.googleMapsCluster.locations = this.items.map((item) => {
+        return {
+          lat: item.latitude,
+          lng: item.longitude
+        };
+      });
       if (this.refresher) {
         this.refresher.complete();
       }
@@ -70,7 +78,7 @@ export class ThreatsPage {
     addModal.onDidDismiss(item => {
       if (item) {
         item.userId = AWS.config.credentials.identityId;
-        item.created = (new Date().getTime() / 1000);
+        item.created = (new Date().getTime());
         this.db.getDocumentClient().put({
           'TableName': this.threatTable,
           'Item': item,
@@ -99,7 +107,18 @@ export class ThreatsPage {
   }
 
   getDate(itemDate) {
-    let date = new Date(itemDate);
-    return date.toString();
+    return new Date(itemDate).toString();
+  }
+
+  showMap(item) {
+    let threatCoordinates = [
+      {
+      'latitude' : item.latitude,
+      'longitude' : item.longitude
+      }
+    ];
+    this.navCtrl.push(MapModal, {
+      threatCoord: threatCoordinates[0]
+    });
   }
 }

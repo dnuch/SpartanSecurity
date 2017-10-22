@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 
 import { SettingsPage } from '../settings/settings';
 import { ThreatsPage } from '../threats/threats';
+import { MapPage } from '../map/map';
 
 @Component({
   templateUrl: 'tabs.html'
@@ -9,7 +10,8 @@ import { ThreatsPage } from '../threats/threats';
 export class TabsPage {
 
   tab1Root = ThreatsPage;
-  tab2Root = SettingsPage;
+  tab2Root = MapPage;
+  tab3Root = SettingsPage;
 
   constructor() {
 

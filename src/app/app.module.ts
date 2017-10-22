@@ -2,8 +2,6 @@ import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 
-import { Camera } from '@ionic-native/camera';
-
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
@@ -14,6 +12,8 @@ import { AccountPage } from '../pages/account/account';
 import { TabsPage } from '../pages/tabs/tabs';
 import { ThreatsPage } from '../pages/threats/threats';
 import { ThreatCreatePage } from '../pages/threat-create/threat-create';
+import { MapPage } from '../pages/map/map';
+import { MapModal } from '../pages/map-modal/map-modal';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -21,6 +21,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 import { User } from '../providers/user';
 import { Cognito } from '../providers/aws.cognito';
 import { DynamoDB } from '../providers/aws.dynamodb';
+
+import { ConnectivityService } from '../providers/connectivity-service/connectivity-service';
+import { Network } from '@ionic-native/network';
+import { GoogleMaps } from '../providers/google-maps/google-maps';
+import { GoogleMapsCluster } from '../providers/google-maps-cluster/google-maps-cluster';
+import { Geolocation } from '@ionic-native/geolocation';
 
 
 @NgModule({
@@ -34,7 +40,9 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     AccountPage,
     TabsPage,
     ThreatsPage,
-    ThreatCreatePage
+    ThreatCreatePage,
+    MapPage,
+    MapModal
   ],
   imports: [
     BrowserModule,
@@ -51,16 +59,22 @@ import { DynamoDB } from '../providers/aws.dynamodb';
     AccountPage,
     TabsPage,
     ThreatsPage,
-    ThreatCreatePage
+    ThreatCreatePage,
+    MapPage,
+    MapModal
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    Camera,
     User,
     Cognito,
-    DynamoDB
+    DynamoDB,
+    ConnectivityService,
+    Network,
+    Geolocation,
+    GoogleMaps,
+    GoogleMapsCluster
   ]
 })
 export class AppModule {}
