@@ -13,7 +13,7 @@ export class GoogleMapsCluster {
     console.log('GoogleMapsCluster Provider init');
   }
 
-  addCluster(map){
+  addCluster(map) {
     if(google.maps){
       //Convert locations into array of markers
       this.markers = this.locations.map((location) => {
@@ -25,5 +25,14 @@ export class GoogleMapsCluster {
     } else {
       console.warn('Google maps needs to be loaded before adding a cluster');
     }
+  }
+
+  setLocation(items) {
+    this.locations = items.map((item) => {
+      return {
+        lat: item.latitude,
+        lng: item.longitude
+      };
+    });
   }
 }

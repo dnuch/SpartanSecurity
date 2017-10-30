@@ -79,5 +79,5 @@ import { Geolocation } from '@ionic-native/geolocation';
 })
 export class AppModule {}
 
-declare var AWS;
+declare let AWS;
 AWS.config.customUserAgent = AWS.config.customUserAgent + ' Ionic';

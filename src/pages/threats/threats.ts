@@ -46,12 +46,7 @@ export class ThreatsPage {
       'ScanIndexForward': false
     }).promise().then((data) => {
       this.items = data.Items;
-      this.googleMapsCluster.locations = this.items.map((item) => {
-        return {
-          lat: item.latitude,
-          lng: item.longitude
-        };
-      });
+      this.googleMapsCluster.setLocation(this.items);
       if (this.refresher) {
         this.refresher.complete();
       }
@@ -61,12 +56,12 @@ export class ThreatsPage {
   }
 
   generateId() {
-    var len = 16;
-    var chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    var charLength = chars.length;
-    var result = "";
+    let len = 16;
+    let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let charLength = chars.length;
+    let result = "";
     let randoms = window.crypto.getRandomValues(new Uint32Array(len));
-    for(var i = 0; i < len; i++) {
+    for(let i = 0; i < len; i++) {
       result += chars[randoms[i] % charLength];
     }
     return result.toLowerCase();
@@ -88,7 +83,7 @@ export class ThreatsPage {
           this.refreshTasks();
         });
       }
-    })
+    });
     addModal.present();
   }
 
@@ -101,6 +96,7 @@ export class ThreatsPage {
       }
     }).promise().then((data) => {
       this.items.splice(index, 1);
+      this.googleMapsCluster.setLocation(this.items);
     }).catch((err) => {
       console.log('there was an error', err);
     });

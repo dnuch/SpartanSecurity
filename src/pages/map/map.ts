@@ -20,16 +20,17 @@ export class MapPage {
               public mapCluster: GoogleMapsCluster) {
   }
 
-  ionViewDidEnter(): void {
-    this.mapLoaded.then(() => this.mapCluster.addCluster(this.threatMap));
+  ionViewWillEnter(): void {
+    this.mapLoaded.then(() => {
+      this.mapCluster.addCluster(this.threatMap);
+    });
   }
 
   ionViewDidLoad(): void {
     this.mapLoaded = this.maps.init(this.mapElement.nativeElement,
-                                   this.pleaseConnect.nativeElement,
-                                   false).then((map) => {
+                                    this.pleaseConnect.nativeElement,
+                                    false).then((map) => {
       this.threatMap = map;
-      this.mapCluster.addCluster(this.threatMap);
     });
   }
 }

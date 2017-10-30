@@ -30,11 +30,11 @@ export class GoogleMaps {
 
   loadGoogleMaps(): Promise<any> {
     return new Promise((resolve) => {
-      if(typeof google == "undefined" || typeof google.maps == "undefined"){
+      if(typeof google == "undefined" || typeof google.maps == "undefined") {
         console.log("Google maps JavaScript needs to be loaded.");
         this.disableMap();
 
-        if(this.connectivityService.isOnline()){
+        if(this.connectivityService.isOnline()) {
           window['mapInit'] = () => {
             this.initMap().then((map) => {
               resolve(map);
@@ -45,7 +45,7 @@ export class GoogleMaps {
           let script = document.createElement("script");
           script.id = "googleMaps";
 
-          if(this.apiKey){
+          if(this.apiKey) {
             script.src = 'http://maps.google.com/maps/api/js?key=' + this.apiKey + '&callback=mapInit';
           } else {
             script.src = 'http://maps.google.com/maps/api/js?callback=mapInit';
@@ -54,7 +54,7 @@ export class GoogleMaps {
         }
       }
       else {
-        if(this.connectivityService.isOnline()){
+        if(this.connectivityService.isOnline()) {
           this.initMap();
           this.enableMap();
         }
@@ -108,7 +108,7 @@ export class GoogleMaps {
           this.loadGoogleMaps();
         }
         else {
-          if(!this.mapInitialised){
+          if(!this.mapInitialised) {
             this.initMap();
           }
           this.enableMap();

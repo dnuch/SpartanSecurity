@@ -17,7 +17,7 @@ export class MapModal {
               public googleMap: GoogleMaps) {
   }
 
-  ionViewDidEnter() : void {
+  ionViewWillEnter(): void {
     this.currentThreat = this.navParams.get('threatCoord');
     let marker = new google.maps.Marker({
       position: {
