@@ -17,6 +17,7 @@ import { MapModal } from '../pages/map-modal/map-modal';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { Camera } from '@ionic-native/camera';
 
 import { User } from '../providers/user';
 import { Cognito } from '../providers/aws.cognito';
@@ -27,7 +28,6 @@ import { Network } from '@ionic-native/network';
 import { GoogleMaps } from '../providers/google-maps/google-maps';
 import { GoogleMapsCluster } from '../providers/google-maps-cluster/google-maps-cluster';
 import { Geolocation } from '@ionic-native/geolocation';
-
 
 @NgModule({
   declarations: [
@@ -64,6 +64,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     MapModal
   ],
   providers: [
+    Camera,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},

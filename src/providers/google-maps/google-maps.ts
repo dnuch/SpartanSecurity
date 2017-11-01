@@ -52,13 +52,11 @@ export class GoogleMaps {
           }
           document.body.appendChild(script);
         }
-      }
-      else {
+      } else {
         if(this.connectivityService.isOnline()) {
           this.initMap();
           this.enableMap();
-        }
-        else {
+        } else {
           this.disableMap();
         }
       }
@@ -106,8 +104,7 @@ export class GoogleMaps {
       setTimeout(() => {
         if(typeof google == "undefined" || typeof google.maps == "undefined"){
           this.loadGoogleMaps();
-        }
-        else {
+        } else {
           if(!this.mapInitialised) {
             this.initMap();
           }

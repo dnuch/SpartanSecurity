@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-
 import { NavController, ModalController } from 'ionic-angular';
+
 import { ThreatCreatePage } from '../threat-create/threat-create';
+import { MapModal } from '../map-modal/map-modal';
 
 import { DynamoDB, User } from '../../providers/providers';
-import { MapModal } from '../map-modal/map-modal';
-import { GoogleMapsCluster } from '../../providers/google-maps-cluster/google-maps-cluster';
 
 declare let AWS: any;
 
@@ -22,17 +21,17 @@ export class ThreatsPage {
   constructor(public navCtrl: NavController,
               public modalCtrl: ModalController,
               public user: User,
-              public db: DynamoDB,
-              public googleMapsCluster: GoogleMapsCluster) {
-    this.refreshTasks();
+              public db: DynamoDB) {
+    this.refreshThreats();
   }
 
   refreshData(refresher) {
     this.refresher = refresher;
-    this.refreshTasks();
+    this.refreshThreats();
+    console.log(AWS.config.credentials);
   }
 
-  refreshTasks() {
+  refreshThreats() {
     this.db.getDocumentClient().query({
       'TableName': this.threatTable,
       'IndexName': 'DateSorted',
@@ -46,7 +45,6 @@ export class ThreatsPage {
       'ScanIndexForward': false
     }).promise().then((data) => {
       this.items = data.Items;
-      this.googleMapsCluster.setLocation(this.items);
       if (this.refresher) {
         this.refresher.complete();
       }
@@ -80,7 +78,7 @@ export class ThreatsPage {
           'ConditionExpression': 'attribute_not_exists(id)'
         }, (err, data) => {
           if (err) { console.log(err); }
-          this.refreshTasks();
+          this.refreshThreats();
         });
       }
     });
@@ -96,7 +94,6 @@ export class ThreatsPage {
       }
     }).promise().then((data) => {
       this.items.splice(index, 1);
-      this.googleMapsCluster.setLocation(this.items);
     }).catch((err) => {
       console.log('there was an error', err);
     });

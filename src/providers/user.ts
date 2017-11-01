@@ -46,7 +46,7 @@ export class User {
            'IdentityPoolId': aws_cognito_identity_pool_id,
            'Logins': logins
           });
-          
+
           this.isAuthenticated().then(() => {
             resolve();
           }).catch((err) => {

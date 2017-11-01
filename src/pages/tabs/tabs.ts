@@ -9,8 +9,8 @@ import { MapPage } from '../map/map';
 })
 export class TabsPage {
 
-  tab1Root = ThreatsPage;
-  tab2Root = MapPage;
+  tab1Root = MapPage;
+  tab2Root = ThreatsPage;
   tab3Root = SettingsPage;
 
   constructor() {
