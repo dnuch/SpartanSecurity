@@ -123,7 +123,7 @@ export class User {
         user.getSession((err, session) => {
           if (err) {
             console.log('rejected session');
-            reject()
+            reject();
           } else {
             console.log('accepted session');
             var logins = {};
@@ -139,11 +139,11 @@ export class User {
             });
 
             this.user = user;
-            resolve()
+            resolve();
           }
         });
       } else {
-        reject()
+        reject();
       }
     });
   }

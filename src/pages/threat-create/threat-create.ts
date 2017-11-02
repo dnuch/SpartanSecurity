@@ -50,15 +50,17 @@ export class ThreatCreatePage {
     this.isReadyToSave = true;
   }
 
-  cancel() {
+  cancel(): void {
     this.viewCtrl.dismiss();
   }
 
-  done() {
+  done(): void {
     this.geolocation.getCurrentPosition().then((geoposition) => {
       this.item.latitude = geoposition.coords.latitude;
       this.item.longitude = geoposition.coords.longitude;
+      this.viewCtrl.dismiss(this.item);
+    }).catch((err) => {
+      console.log('gps', err);
     });
-    this.viewCtrl.dismiss(this.item);
   }
 }

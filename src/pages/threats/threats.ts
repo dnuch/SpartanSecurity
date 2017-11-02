@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { Events, NavController, ModalController } from 'ionic-angular';
 
 import { ThreatCreatePage } from '../threat-create/threat-create';
 import { MapModal } from '../map-modal/map-modal';
@@ -21,7 +21,8 @@ export class ThreatsPage {
   constructor(public navCtrl: NavController,
               public modalCtrl: ModalController,
               public user: User,
-              public db: DynamoDB) {
+              public db: DynamoDB,
+              public events: Events) {
     this.refreshThreats();
   }
 
@@ -45,7 +46,7 @@ export class ThreatsPage {
       'ScanIndexForward': false
     }).promise().then((data) => {
       this.items = data.Items;
-      if (this.refresher) {
+      if(this.refresher) {
         this.refresher.complete();
       }
     }).catch((err) => {
@@ -69,7 +70,7 @@ export class ThreatsPage {
     let id = this.generateId();
     let addModal = this.modalCtrl.create(ThreatCreatePage, { 'id': id });
     addModal.onDidDismiss(item => {
-      if (item) {
+      if(item) {
         item.userId = AWS.config.credentials.identityId;
         item.created = (new Date().getTime());
         this.db.getDocumentClient().put({
@@ -77,9 +78,10 @@ export class ThreatsPage {
           'Item': item,
           'ConditionExpression': 'attribute_not_exists(id)'
         }, (err, data) => {
-          if (err) { console.log(err); }
+          console.log(err, data);
           this.refreshThreats();
         });
+        this.events.publish('refreshMap');
       }
     });
     addModal.present();
@@ -92,7 +94,8 @@ export class ThreatsPage {
         'userId': AWS.config.credentials.identityId,
         'threatId': threat.threatId
       }
-    }).promise().then((data) => {
+    }).promise().then(() => {
+      this.events.publish('refreshMap');
       this.items.splice(index, 1);
     }).catch((err) => {
       console.log('there was an error', err);
@@ -104,14 +107,12 @@ export class ThreatsPage {
   }
 
   showMap(item) {
-    let threatCoordinates = [
-      {
-      'latitude' : item.latitude,
-      'longitude' : item.longitude
-      }
-    ];
+    let threatCoordinates = {
+      'latitude': item.latitude,
+      'longitude': item.longitude
+      };
     this.navCtrl.push(MapModal, {
-      threatCoord: threatCoordinates[0]
+      threatCoord: threatCoordinates
     });
   }
 }

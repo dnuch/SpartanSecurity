@@ -13,7 +13,7 @@ export class MapPage {
   @ViewChild('map') mapElement: ElementRef;
   @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
 
-  mapLoaded: any;
+  mapLoaded: boolean = false;
   threatMap: any;
 
   constructor(public platform: Platform,
@@ -22,16 +22,17 @@ export class MapPage {
   }
 
   ionViewDidEnter(): void {
-    this.mapLoaded.then(() => {
-      this.mapCluster.addCluster(this.threatMap);
-    });
+    if(this.mapLoaded)
+      google.maps.event.trigger(this.threatMap, 'resize');
   }
 
   ionViewDidLoad(): void {
-    this.mapLoaded = this.maps.init(this.mapElement.nativeElement,
+    this.maps.init(this.mapElement.nativeElement,
                                     this.pleaseConnect.nativeElement,
                                     false).then((map) => {
+      this.mapLoaded = true;
       this.threatMap = map;
+      this.mapCluster.addCluster(this.threatMap);
     });
   }
 }

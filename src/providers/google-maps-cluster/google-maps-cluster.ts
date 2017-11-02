@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as MarkerClusterer from 'node-js-marker-clusterer';
 import { DynamoDB } from '../../providers/providers';
+import { Events } from 'ionic-angular';
 import 'rxjs/add/operator/map';
 
 @Injectable()
@@ -9,7 +10,14 @@ export class GoogleMapsCluster {
   markerCluster: any;
   private threatTable: string = 'spartanSecurity-threats';
 
-  constructor(public db: DynamoDB) {
+  constructor(public db: DynamoDB,
+              public events: Events) {
+    this.events.subscribe('refreshMap', () => {
+      this.markerCluster.clearMarkers();
+      this.getThreats().then((markers) => {
+        this.markerCluster.addMarkers(markers);
+      });
+    });
   }
 
   addCluster(googleMap) {
