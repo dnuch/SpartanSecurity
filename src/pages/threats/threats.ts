@@ -77,11 +77,12 @@ export class ThreatsPage {
           'TableName': this.threatTable,
           'Item': item,
           'ConditionExpression': 'attribute_not_exists(id)'
-        }, (err, data) => {
-          console.log(err, data);
+        }).promise().then(() => {
           this.refreshThreats();
+          this.events.publish('refreshMap');
+        }).catch((err, data) => {
+          console.log(err, data);
         });
-        this.events.publish('refreshMap');
       }
     });
     addModal.present();
@@ -110,7 +111,7 @@ export class ThreatsPage {
     let threatCoordinates = {
       'latitude': item.latitude,
       'longitude': item.longitude
-      };
+    };
     this.navCtrl.push(MapModal, {
       threatCoord: threatCoordinates
     });

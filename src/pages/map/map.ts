@@ -21,7 +21,7 @@ export class MapPage {
               public mapCluster: GoogleMapsCluster) {
   }
 
-  ionViewDidEnter(): void {
+  ionViewWillEnter(): void {
     if(this.mapLoaded)
       google.maps.event.trigger(this.threatMap, 'resize');
   }

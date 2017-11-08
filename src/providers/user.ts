@@ -47,6 +47,10 @@ export class User {
            'Logins': logins
           });
 
+          AWS.config.credentials.refresh(function () {
+            console.log('USER-SERVICE:LOGIN:AWS.config.credentials.identityId -> ' + AWS.config.credentials.identityId);
+          });
+
           this.isAuthenticated().then(() => {
             resolve();
           }).catch((err) => {
@@ -67,6 +71,7 @@ export class User {
 
   logout() {
     this.user = null;
+    AWS.config.credentials.clearCachedId();
     this.cognito.getUserPool().getCurrentUser().signOut();
   }
 
