@@ -13,15 +13,15 @@ export class MapPage {
   @ViewChild('map') mapElement: ElementRef;
   @ViewChild('pleaseConnect') pleaseConnect: ElementRef;
 
-  mapLoaded: boolean = false;
   threatMap: any;
+  mapLoaded: boolean = false;
 
   constructor(public platform: Platform,
               public maps: GoogleMaps,
               public mapCluster: GoogleMapsCluster) {
   }
 
-  ionViewWillEnter(): void {
+  ionViewDidEnter(): void {
     if(this.mapLoaded)
       google.maps.event.trigger(this.threatMap, 'resize');
   }
@@ -30,8 +30,8 @@ export class MapPage {
     this.maps.init(this.mapElement.nativeElement,
                                     this.pleaseConnect.nativeElement,
                                     false).then((map) => {
-      this.mapLoaded = true;
       this.threatMap = map;
+      this.mapLoaded = true;
       this.mapCluster.addCluster(this.threatMap);
     });
   }

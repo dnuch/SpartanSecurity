@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavParams, ViewController, Platform } from 'ionic-angular';
+import { LoadingController, NavParams, ViewController, Platform } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
 @Component({
@@ -18,7 +18,8 @@ export class ThreatCreatePage {
   constructor(public navParams: NavParams,
               public viewCtrl: ViewController,
               public platform: Platform,
-              public geolocation: Geolocation) {
+              public geolocation: Geolocation,
+              public loadingCtrl: LoadingController) {
     this.isAndroid = platform.is('android');
 
     this.threatOptions = [
@@ -55,10 +56,18 @@ export class ThreatCreatePage {
   }
 
   done(): void {
+    let loading = this.loadingCtrl.create({
+      spinner: 'dots'
+    });
+
+    loading.present();
+
     this.geolocation.getCurrentPosition().then((geoposition) => {
       this.item.latitude = geoposition.coords.latitude;
       this.item.longitude = geoposition.coords.longitude;
-      this.viewCtrl.dismiss(this.item);
+      this.viewCtrl.dismiss(this.item).then(() => {
+        loading.dismiss();
+      });
     }).catch((err) => {
       console.log('gps', err);
     });

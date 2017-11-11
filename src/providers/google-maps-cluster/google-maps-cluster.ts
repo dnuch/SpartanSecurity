@@ -73,7 +73,7 @@ export class GoogleMapsCluster {
 
   threatAlert(index: number): void {
     let alert = this.alertCtrl.create({
-      title: this.threatDetails[index].userId,
+      title: this.threatDetails[index].type,
       subTitle: new Date(this.threatDetails[index].created).toString(),
       message: this.threatDetails[index].description
     });

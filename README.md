@@ -31,7 +31,5 @@ open platforms/ios/MyApp.xcodeproj
 ### Components in Progress:
 
 <ul>
-  <li>Google Maps API</li>
   <li>AWS user groups precedence</li>
-  <li>Geolocation</li>
 </ul>
